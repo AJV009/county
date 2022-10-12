@@ -1,52 +1,34 @@
 ﻿(function ($) {
     $.fn.county = function (options) {
-        var settings = $.extend({ endDateTime: new Date(), animation: 'fade', reflection: true, reflectionOpacity: 0.2, speed: 500, theme: 'black' }, options);
+        var settings = $.extend({ 
+            endDateTime: new Date(), 
+            animation: 'fade', 
+            reflection: false, 
+            reflectionOpacity: 0, 
+            speed: 500, 
+            theme: 'black' }, 
+            options);
 
         return this.each(function () {
             var timeoutInterval = null;
             var $container = $(this);
             $container.addClass('county ' + settings.theme);
-            $container.append('<span class="county-days-wrapper county-first"><span class="county-days">000</span></span><span class="county-hours-wrapper county-separator-left county-separator-right"><span class="county-hours">00</span></span><span class="county-minutes-wrapper county-separator-left county-separator-right"><span class="county-minutes">00</span></span><span class="county-seconds-wrapper county-separator-left county-last"><span class="county-seconds">00</span></span><div class="county-clear"></div><span class="county-label-days">Days</span><span class="county-label-hours">Hours</span><span class="county-label-minutes">Minutes</span><span class="county-label-seconds">Seconds</span>');
+            $container.append(`
+                <span class="county-days-wrapper county-first">
+                    <span class="county-days">000</span>D
+                </span>
+                <span class="county-hours-wrapper county-separator-left county-separator-right">
+                    <span class="county-hours">00</span>H
+                </span>
+                <span class="county-minutes-wrapper county-separator-left county-separator-right">
+                    <span class="county-minutes">00</span>M
+                </span>
+                <span class="county-seconds-wrapper county-separator-left county-last">
+                    <span class="county-seconds">00</span>S
+                </span>`);
                 if ($container.attr('id') == undefined || $container.attr('id') == null) {
                 $container.attr('id', Math.random());
             }
-
-            $container.find('>span>span').each(function () {
-
-                $(this).css({ position: 'absolute', width: $(this).width(), height: $(this).height() });
-                $(this).parent().css({ width: $(this).width() });
-                var daysLabel = $container.find('.county-label-days');
-                var hoursLabel = $container.find('.county-label-hours');
-                var minutesLabel = $container.find('.county-label-minutes');
-                var secondsLabel = $container.find('.county-label-seconds');
-                if ($(this).hasClass('county-days')) {
-                    daysLabel.css({ width: $(this).parent().outerWidth() });
-                }
-                if ($(this).hasClass('county-hours')) {
-                    hoursLabel.css({ width: $(this).parent().outerWidth() });
-                }
-                if ($(this).hasClass('county-minutes')) {
-                    minutesLabel.css({ width: $(this).parent().outerWidth() });
-                }
-                if ($(this).hasClass('county-seconds')) {
-                    secondsLabel.css({ width: $(this).parent().outerWidth() });
-                }
-            });
-
-            var w = 0;
-            $container.find('>span').each(function () {
-                if ($(this).hasClass('county-days-wrapper') ||
-                  $(this).hasClass('county-hours-wrapper') ||
-                  $(this).hasClass('county-minutes-wrapper') ||
-                  $(this).hasClass('county-seconds-wrapper'))
-                    w += $(this).outerWidth();
-            });
-
-            $container.css({ width: w });
-
-            var reflectionContainer = $container.clone().css({ opacity: settings.reflectionOpacity }).attr('id', $container.attr('id') + '-refl').addClass('county-reflection');
-            if (settings.reflection)
-                $container.after(reflectionContainer);
 
             updateCounter();
 
@@ -76,36 +58,24 @@
                     days.html(countDown.days);
                 }
                 else {
-                    if (settings.reflection)
-                        animateObject(days, reflectionContainer.find('.county-days'), dayVal, countDown.days, settings.animation);
-                    else
-                        animateObject(days, null, dayVal, countDown.days, settings.animation);
+                    animateObject(days, null, dayVal, countDown.days, settings.animation);
                 }
 
                 if (hourVal == countDown.hours)
                     hours.html(countDown.hours);
                 else {
-                    if (settings.reflection)
-                        animateObject(hours, reflectionContainer.find('.county-hours'), hourVal, countDown.hours, settings.animation);
-                    else
-                        animateObject(hours, null, hourVal, countDown.hours, settings.animation);
+                    animateObject(hours, null, hourVal, countDown.hours, settings.animation);
                 }
 
                 if (minuteVal == countDown.minutes)
                     minutes.html(countDown.minutes);
                 else {
-                    if (settings.reflection)
-                        animateObject(minutes, reflectionContainer.find('.county-minutes'), minuteVal, countDown.minutes, settings.animation);
-                    else
-                        animateObject(minutes, null, minuteVal, countDown.minutes, settings.animation);
+                    animateObject(minutes, null, minuteVal, countDown.minutes, settings.animation);
                 }
                 if (secondVal == countDown.seconds)
                     seconds.html(countDown.seconds);
                 else {
-                    if (settings.reflection)
-                        animateObject(seconds, reflectionContainer.find('.county-seconds'), secondVal, countDown.seconds, settings.animation);
-                    else
-                        animateObject(seconds, null, secondVal, countDown.seconds, settings.animation);
+                    animateObject(seconds, null, secondVal, countDown.seconds, settings.animation);
                 }
 
                 getCountDown();
@@ -113,15 +83,9 @@
             function animateObject(element, reflectionElement, oldValue, newValue, type) {
                 if (type == 'fade') {
                     element.fadeOut('fast').fadeIn('fast').html(newValue);
-                    if (settings.reflection)
-                        reflectionElement.fadeOut('fast').fadeIn('fast').html(newValue);
                 }
                 else if (type == 'scroll') {
                     var copy = element.clone();
-                    var reflectionCopy = null;
-
-                    if (settings.reflection)
-                        reflectionCopy = reflectionElement.clone();
 
                     var marginTop = copy.outerHeight();
 
@@ -129,19 +93,8 @@
                     copy.html(newValue);
                     copy.prependTo(element.parent());
 
-                    if (settings.reflection) {
-                        reflectionCopy.css({ marginTop: -marginTop });
-                        reflectionCopy.html(newValue);
-                        reflectionCopy.prependTo(reflectionElement.parent());
-                    }
-
                     element.animate({ marginTop: marginTop }, settings.speed, function () { $(this).remove(); });
                     copy.animate({ marginTop: 0 }, settings.speed, function () { });
-
-                    if (settings.reflection) {
-                        reflectionElement.animate({ marginTop: marginTop }, settings.speed, function () { $(this).remove(); });
-                        reflectionCopy.animate({ marginTop: 0 }, settings.speed, function () { });
-                    }
 
                 }
 
