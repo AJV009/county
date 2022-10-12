@@ -15,16 +15,16 @@
             $container.addClass('county ' + settings.theme);
             $container.append(`
                 <span class="county-days-wrapper county-first">
-                    <span class="county-days">000</span>D
+                    <span class="county-days">000</span>
                 </span>
                 <span class="county-hours-wrapper county-separator-left county-separator-right">
-                    <span class="county-hours">00</span>H
+                    <span class="county-hours">00</span>
                 </span>
                 <span class="county-minutes-wrapper county-separator-left county-separator-right">
-                    <span class="county-minutes">00</span>M
+                    <span class="county-minutes">00</span>
                 </span>
                 <span class="county-seconds-wrapper county-separator-left county-last">
-                    <span class="county-seconds">00</span>S
+                    <span class="county-seconds">00</span>
                 </span>`);
                 if ($container.attr('id') == undefined || $container.attr('id') == null) {
                 $container.attr('id', Math.random());
@@ -81,23 +81,7 @@
                 getCountDown();
             }
             function animateObject(element, reflectionElement, oldValue, newValue, type) {
-                if (type == 'fade') {
-                    element.fadeOut('fast').fadeIn('fast').html(newValue);
-                }
-                else if (type == 'scroll') {
-                    var copy = element.clone();
-
-                    var marginTop = copy.outerHeight();
-
-                    copy.css({ marginTop: -marginTop });
-                    copy.html(newValue);
-                    copy.prependTo(element.parent());
-
-                    element.animate({ marginTop: marginTop }, settings.speed, function () { $(this).remove(); });
-                    copy.animate({ marginTop: 0 }, settings.speed, function () { });
-
-                }
-
+                element.fadeOut('fast').fadeIn('fast').html(newValue);
             }
             function getCurrentCountDown() {
 
@@ -131,7 +115,12 @@
 
                 seconds = parseInt(total);
 
-                return { days: formatNumber(Math.max(0, days), true), hours: formatNumber(Math.max(0, hours), false), minutes: formatNumber(Math.max(0, minutes), false), seconds: formatNumber(Math.max(0, seconds), false) };
+                return { 
+                    days: formatNumber(Math.max(0, days), true) + 'D', 
+                    hours: formatNumber(Math.max(0, hours), false) + 'H',
+                    minutes: formatNumber(Math.max(0, minutes), false) + 'M',
+                    seconds: formatNumber(Math.max(0, seconds), false) + 'S'
+                };
 
             }
             function formatNumber(number, isday) {
@@ -151,32 +140,7 @@
                         return strNumber;
                 }
             }
-            function getHunderth(number) {
-                var strNumber = '' + number;
 
-                if (strNumber.length == 3)
-                    return strNumber.substr(0, 1);
-                else
-                    return '0';
-            }
-            function getTenth(number) {
-
-                var strNumber = '' + number;
-
-                if (strNumber.length == 2)
-                    return strNumber.substr(0, 1);
-                else
-                    return '0';
-            }
-
-            function getUnit(number) {
-                var strNumber = '' + number;
-
-                if (strNumber.length >= 1)
-                    return strNumber.substr(0, 1);
-                else
-                    return '0';
-            }
             return this;
         });
     }

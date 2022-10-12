@@ -1,43 +1,15 @@
-.county
-{
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-}
 .county span.county-first
 {
-    padding-left: 12px;
-    border-radius: 4px 0px 0px 4px;
-    -webkit-border-radius: 4px 0px 0px 4px;
-    -moz-border-radius: 4px 0px 0px 4px;
+    padding-left: 2px;
 }
-.county span.county-last
-{
-    border-radius: 0px 4px 4px 0px;
-    -webkit-border-radius: 0px 4px 4px 0px;
-    -moz-border-radius: 0px 4px 4px 0px;
-}
-
 .county > span
 {
-    display: inline-block;
-    height: 48px;
-    font-family: Arial;
-    font-weight: bold;
-    font-size: 60px;
-    line-height: 72px;
-    position: relative;
-    overflow: hidden;
-    padding-right: 12px;
+    padding-right: 2px;
 }
-
 .county-days-wrapper, .county-hours-wrapper, .county-minutes-wrapper, .county-seconds-wrapper
 {
-    overflow: hidden !important;
-    position: relative !important;
-    height: 72px !important;
     display: inline-block !important;
-    padding-left: 12px;
+    padding-left: 2px;
 }
 .county > span > span
 {
