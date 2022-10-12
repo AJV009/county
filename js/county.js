@@ -1,12 +1,12 @@
 ﻿(function ($) {
     $.fn.county = function (options) {
-        var settings = $.extend({ 
-            endDateTime: new Date(), 
-            animation: 'fade', 
-            reflection: false, 
-            reflectionOpacity: 0, 
-            speed: 500, 
-            theme: 'black' }, 
+        var settings = $.extend({
+            endDateTime: new Date(),
+            animation: 'fade',
+            reflection: false,
+            reflectionOpacity: 0,
+            speed: 500,
+            theme: 'black' },
             options);
 
         return this.each(function () {
@@ -54,29 +54,25 @@
                 var minuteVal = minutes.html();
                 var secondVal = seconds.html();
 
-                if (dayVal == countDown.days) {
+                if (dayVal == countDown.days)
                     days.html(countDown.days);
-                }
-                else {
+                else
                     animateObject(days, null, dayVal, countDown.days, settings.animation);
-                }
 
                 if (hourVal == countDown.hours)
                     hours.html(countDown.hours);
-                else {
+                else
                     animateObject(hours, null, hourVal, countDown.hours, settings.animation);
-                }
 
                 if (minuteVal == countDown.minutes)
                     minutes.html(countDown.minutes);
-                else {
+                else
                     animateObject(minutes, null, minuteVal, countDown.minutes, settings.animation);
-                }
+
                 if (secondVal == countDown.seconds)
                     seconds.html(countDown.seconds);
-                else {
+                else
                     animateObject(seconds, null, secondVal, countDown.seconds, settings.animation);
-                }
 
                 getCountDown();
             }
