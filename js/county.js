@@ -44,10 +44,15 @@
             }
             function updateCounter() {
                 var countDown = getCurrentCountDown();
-                $container.find('.county-days').html(countDown.days);
+                $container.find('.county-days').html(countDown.days.replace(/^0+/, ''));
                 $container.find('.county-hours').html(countDown.hours);
                 $container.find('.county-minutes').html(countDown.minutes);
                 $container.find('.county-seconds').html(countDown.seconds);
+
+                if (countDown.days == "000D" || countDown.days == "00D" || countDown.days == "0D" || countDown.days == "D")
+                    $container.find('.county-days-wrapper').hide();
+                else
+                    $container.find('.county-days-wrapper').show();
 
                 getCountDown();
             }

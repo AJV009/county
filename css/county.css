@@ -8,7 +8,7 @@
 }
 .county-days-wrapper, .county-hours-wrapper, .county-minutes-wrapper, .county-seconds-wrapper
 {
-    display: inline-block !important;
+    display: inline-block;
     padding-left: 2px;
 }
 .county > span > span
