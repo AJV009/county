@@ -44,41 +44,14 @@
             }
             function updateCounter() {
                 var countDown = getCurrentCountDown();
-                var days = $container.find('.county-days');
-                var hours = $container.find('.county-hours');
-                var minutes = $container.find('.county-minutes');
-                var seconds = $container.find('.county-seconds');
-
-                var dayVal = days.html();
-                var hourVal = hours.html();
-                var minuteVal = minutes.html();
-                var secondVal = seconds.html();
-
-                if (dayVal == countDown.days)
-                    days.html(countDown.days);
-                else
-                    animateObject(days, null, dayVal, countDown.days, settings.animation);
-
-                if (hourVal == countDown.hours)
-                    hours.html(countDown.hours);
-                else
-                    animateObject(hours, null, hourVal, countDown.hours, settings.animation);
-
-                if (minuteVal == countDown.minutes)
-                    minutes.html(countDown.minutes);
-                else
-                    animateObject(minutes, null, minuteVal, countDown.minutes, settings.animation);
-
-                if (secondVal == countDown.seconds)
-                    seconds.html(countDown.seconds);
-                else
-                    animateObject(seconds, null, secondVal, countDown.seconds, settings.animation);
+                $container.find('.county-days').html(countDown.days);
+                $container.find('.county-hours').html(countDown.hours);
+                $container.find('.county-minutes').html(countDown.minutes);
+                $container.find('.county-seconds').html(countDown.seconds);
 
                 getCountDown();
             }
-            function animateObject(element, reflectionElement, oldValue, newValue, type) {
-                element.fadeOut('fast').fadeIn('fast').html(newValue);
-            }
+
             function getCurrentCountDown() {
 
                 //var endDateTime = new Date('2012/12/25 10:00:00');
